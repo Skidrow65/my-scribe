@@ -1,8 +1,33 @@
 import React from 'react'
 import { LANGUAGES } from '../utils/presets'
+import { ANTHROPIC_API_KEY } from '../config/config';
+import { pipeline } from '@xenova/transformers';
 
-export default function Translation(props) {
-    const { textElement, toLanguage, translating, setToLanguage, generateTranslation } = props
+export default async function Translation(props) {
+    const { textElement, toLanguage, translating, setToLanguage,} = props
+    
+    const generateTranslation = async () => {
+        const url = 'https://api.anthropic.com/v1/translate';
+        const headers = {
+          'Authorization': `Bearer ${ANTHROPIC_API_KEY}`,
+          'Content-Type': 'application/json',
+        };
+      
+        const response = await fetch(url, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            // Your API request payload here
+          }),
+        });
+      
+        const data = await response.json();
+        // Handle the response data
+      };
+
+      // Create a translation pipeline
+
+    
     return (
         <>
             {(textElement && !translating) && (
